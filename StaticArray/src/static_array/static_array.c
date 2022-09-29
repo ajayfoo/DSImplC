@@ -1,6 +1,7 @@
 #include "static_array.h"
 #include <stdbool.h>
 #include <stdio.h>
+#include <stdlib.h>
 
 bool array_is_full(const StaticArray* array)
 {
@@ -29,7 +30,13 @@ bool insert_at(StaticArray* array, size_t index, int ele)
     {
         printf("Array is full!\n");
         return false;
-    } else
+    }
+    if(index>=array->m_length)
+    {
+        printf("Array's index is out of bounds\n");
+        abort();
+    }
+    else
     {
         ++array->m_length;
         for (size_t i = array->m_length; i > index; --i)
@@ -42,6 +49,17 @@ bool insert_at(StaticArray* array, size_t index, int ele)
 }
 
 // read
+
+int element_at(StaticArray* array,size_t index)
+{
+    if(index>=array->m_length)
+    {
+        printf("Array's index is out of bounds\n");
+        abort();
+    }
+    return array->m_data[index];
+}
+
 void print_array(const StaticArray* array)
 {
     for (int i = 0; i < array->m_length; ++i)
@@ -65,6 +83,7 @@ void update(StaticArray* array, size_t index, int new_ele)
     if (index >= array->m_length)
     {
         printf("Array's index is out of bounds\n");
+        abort();
     } else
     {
         array->m_data[index] = new_ele;

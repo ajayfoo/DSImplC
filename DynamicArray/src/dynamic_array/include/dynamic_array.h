@@ -12,20 +12,12 @@ typedef struct
 {
     int m_length;
     int m_capacity;
-    int* m_data;
+    int m_data[];
 } DynamicArray;
 
-int element_at(DynamicArray* array, int index);
-
-void insert(DynamicArray* array, int ele);
-
-bool insert_at(DynamicArray* array, int index, int ele);
+DynamicArray* insert(DynamicArray* array, int ele);
 
 void print_array(const DynamicArray* array);
-
-void update(DynamicArray* array, int index, int new_ele);
-
-bool delete(DynamicArray* array, int index);
 
 DynamicArray* init_dynamic_array(DynamicArray* array);
 

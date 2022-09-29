@@ -2,24 +2,27 @@
 #define STATIC_ARRAY_H
 
 #include <stdbool.h>
+#include <stddef.h>
 
 #define STATIC_ARRAY_CAPACITY 100
 
 typedef struct
 {
-    int length;
-    int data[STATIC_ARRAY_CAPACITY];
+    size_t m_length;
+    int m_data[STATIC_ARRAY_CAPACITY];
 } StaticArray;
 
 
 bool insert(StaticArray* array, int ele);
 
-bool insert_at(StaticArray* array, int index, int ele);
+bool insert_at(StaticArray* array, size_t index, int ele);
 
 void print_array(const StaticArray* array);
 
-void update(StaticArray* array, int index, int new_ele);
+void update(StaticArray* array, size_t index, int new_ele);
 
-bool delete(StaticArray* array, int index);
+bool delete(StaticArray* array, size_t index);
+
+int search(StaticArray* array, int ele);
 
 #endif

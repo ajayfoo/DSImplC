@@ -13,13 +13,6 @@ int main()
     insert(&static_array, 1);
     insert(&static_array, 2);
     print_array(&static_array);
-    update(&static_array, 2, 69);
-    printf("After updating\n");
-    print_array(&static_array);
-    delete(&static_array, 2);
-    printf("After deleting\n");
-    print_array(&static_array);
-    insert_at(&static_array, 2, 67);
-    printf("After inserting at index 2.\n");
-    print_array(&static_array);
+    printf("Element 3 is at index %d\n", search(&static_array,3));
+    return 0;
 }

@@ -3,6 +3,15 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+void check_index_bounds(StaticArray* array, size_t index)
+{
+    if (index >= array->m_length)
+    {
+        printf("Array's index is out of bounds\n");
+        abort();
+    }
+}
+
 bool array_is_full(const StaticArray* array)
 {
     return STATIC_ARRAY_CAPACITY == array->m_length;
@@ -15,7 +24,7 @@ bool insert(StaticArray* array, int ele)
     if (array_is_full(array))
     {
         printf("Array is full!\n");
-        return false;
+        abort();
     } else
     {
         array->m_data[array->m_length] = ele;
@@ -29,34 +38,24 @@ bool insert_at(StaticArray* array, size_t index, int ele)
     if (array_is_full(array))
     {
         printf("Array is full!\n");
-        return false;
-    }
-    if(index>=array->m_length)
-    {
-        printf("Array's index is out of bounds\n");
         abort();
     }
-    else
+    check_index_bounds(array, index);
+    ++array->m_length;
+    for (size_t i = array->m_length; i > index; --i)
     {
-        ++array->m_length;
-        for (size_t i = array->m_length; i > index; --i)
-        {
-            array->m_data[i] = array->m_data[i - 1];
-        }
-        array->m_data[index] = ele;
-        return true;
+        array->m_data[i] = array->m_data[i - 1];
     }
+    array->m_data[index] = ele;
+    return true;
+
 }
 
 // read
 
-int element_at(StaticArray* array,size_t index)
+int element_at(StaticArray* array, size_t index)
 {
-    if(index>=array->m_length)
-    {
-        printf("Array's index is out of bounds\n");
-        abort();
-    }
+    check_index_bounds(array, index);
     return array->m_data[index];
 }
 
@@ -70,9 +69,9 @@ void print_array(const StaticArray* array)
 
 int search(StaticArray* array, int ele)
 {
-    for(size_t i=0;i<array->m_length;++i)
+    for (size_t i = 0; i < array->m_length; ++i)
     {
-        if(array->m_data[i]==ele)return (int)i;
+        if (array->m_data[i] == ele)return (int) i;
     }
     return -1;
 }
@@ -80,31 +79,21 @@ int search(StaticArray* array, int ele)
 
 void update(StaticArray* array, size_t index, int new_ele)
 {
-    if (index >= array->m_length)
-    {
-        printf("Array's index is out of bounds\n");
-        abort();
-    } else
-    {
-        array->m_data[index] = new_ele;
-    }
+    check_index_bounds(array, index);
+    array->m_data[index] = new_ele;
+
 }
 
 //delete
 
 bool delete(StaticArray* array, size_t index)
 {
-    if (index >= array->m_length)
+    check_index_bounds(array, index);
+    for (size_t i = index; i < (array->m_length - 1); ++i)
     {
-        printf("Array's index is out of bounds\n");
-        return false;
-    } else
-    {
-        for (size_t i = index; i < (array->m_length - 1); ++i)
-        {
-            array->m_data[i] = array->m_data[i + 1];
-        }
-        --array->m_length;
-        return true;
+        array->m_data[i] = array->m_data[i + 1];
     }
+    --array->m_length;
+    return true;
+
 }

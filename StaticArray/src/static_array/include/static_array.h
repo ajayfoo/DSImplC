@@ -17,7 +17,7 @@ bool insert(StaticArray* array, int ele);
 
 bool insert_at(StaticArray* array, size_t index, int ele);
 
-int element_at(StaticArray* array,size_t index);
+int element_at(StaticArray* array, size_t index);
 
 int search(StaticArray* array, int ele);
 

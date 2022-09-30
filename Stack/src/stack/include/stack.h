@@ -16,9 +16,15 @@ typedef struct
 } Stack;
 
 Stack* init_stack(size_t capacity);
-void push(Stack* stack,int ele);
+
+bool stack_is_empty(const Stack* stack);
+
+void push(Stack* stack, int ele);
+
 int pop(Stack* stack);
+
 int peek(Stack* stack);
+
 void print_stack(Stack* stack);
 
 #endif //STACK_STACK_H

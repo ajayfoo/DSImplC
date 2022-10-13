@@ -1,0 +1,1 @@
+add_executable(run_io_tests io_tests.c)

@@ -1,0 +1,12 @@
+---
+Checks: "-*,
+    modernize-*,
+    cppcoreguidelines-*,
+    clang-analyzer-core*,
+    performance-*,
+    portability-*,
+    readability-*,
+"
+WarningsAsErrors: ''
+HeaderFilterRegex: ''
+FormatStyle:     none

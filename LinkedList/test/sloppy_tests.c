@@ -21,6 +21,7 @@ void test_insert_at_head(void)
     insert_at_head(linked_list, 3);
     insert_at_head(linked_list, 4);
     print_linked_list(linked_list);
+    clear_linked_list(linked_list);
 }
 
 void test_delete_head(void)
@@ -31,16 +32,19 @@ void test_delete_head(void)
     delete_head(linked_list);
     printf("After deleting the head:-\n");
     print_linked_list(linked_list);
+    clear_linked_list(linked_list);
 }
 
 void test_delete_tail(void)
 {
-    LinkedList* linked_list = get_dummy_linked_list();
+    LinkedList* linked_list = get_new_linked_list();
+    insert_at_head(linked_list, 1);
     printf("Before deleting the tail:-\n");
     print_linked_list(linked_list);
     printf("After deleting the tail:-\n");
     delete_tail(linked_list);
     print_linked_list(linked_list);
+    clear_linked_list(linked_list);
 }
 
 void test_delete_at(void)
@@ -51,5 +55,16 @@ void test_delete_at(void)
     print_linked_list(linked_list);
     delete_at(linked_list, index);
     printf("After deleting the element at index %zu:-\n", index);
+    print_linked_list(linked_list);
+    clear_linked_list(linked_list);
+}
+
+void test_clear_linked_list(void)
+{
+    LinkedList* linked_list = get_dummy_linked_list();
+    printf("Before clearing the linked list:-\n");
+    print_linked_list(linked_list);
+    clear_linked_list(linked_list);
+    printf("After clearing the linked list:-\n");
     print_linked_list(linked_list);
 }

@@ -92,14 +92,31 @@ void print_linked_list(LinkedList* linked_list)
     printf("\n");
 }
 
+ListNode* delete_and_return_next_list_node(ListNode* deletion_list_node)
+{
+    ListNode* next_list_node = deletion_list_node->m_next;
+    free(deletion_list_node);
+    return next_list_node;
+}
+
+void clear_linked_list(LinkedList* linked_list)
+{
+    ListNode* current_list_node = linked_list->m_head;
+    while (current_list_node != NULL)
+    {
+        current_list_node = delete_and_return_next_list_node(current_list_node);
+    }
+    linked_list->m_head = NULL;
+    linked_list->m_head = NULL;
+    linked_list->m_length = 0;
+}
+
 void delete_head(LinkedList* linked_list)
 {
     if (linked_list->m_head != NULL)
     {
-        ListNode* deletion_list_node = linked_list->m_head;
-        linked_list->m_head = deletion_list_node->m_next;
+        linked_list->m_head = delete_and_return_next_list_node(linked_list->m_head);
         --linked_list->m_length;
-        free(deletion_list_node);
     }
     else
     {
@@ -114,10 +131,7 @@ void delete_tail(LinkedList* linked_list)
     {
         if (linked_list->m_tail == linked_list->m_head)
         {
-            free(linked_list->m_tail);
-            linked_list->m_head = NULL;
-            linked_list->m_tail = NULL;
-            --linked_list->m_length;
+            clear_linked_list(linked_list);
         }
         else
         {

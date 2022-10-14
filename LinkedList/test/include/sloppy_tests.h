@@ -3,4 +3,6 @@
 
 void test_insert_at_head(void);
 
+void test_delete_head(void);
+
 #endif

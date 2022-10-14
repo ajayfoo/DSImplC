@@ -31,7 +31,7 @@ void insert_at_head(LinkedList* linked_list, int data)
     ListNode* new_list_node = get_new_list_node(data);
     new_list_node->m_next = linked_list->m_head;
     linked_list->m_head = new_list_node;
-    if (linked_list->m_length == 0)
+    if (linked_list->m_tail == NULL)
     {
         linked_list->m_tail = new_list_node;
     }
@@ -40,9 +40,16 @@ void insert_at_head(LinkedList* linked_list, int data)
 
 void insert_after_tail(LinkedList* linked_list, int data)
 {
-    insert_after(linked_list->m_tail, data);
-    linked_list->m_tail = linked_list->m_tail->m_next;
-    ++linked_list->m_length;
+    if (linked_list->m_tail == NULL)
+    {
+        insert_at_head(linked_list, data);
+    }
+    else
+    {
+        insert_after(linked_list->m_tail, data);
+        linked_list->m_tail = linked_list->m_tail->m_next;
+        ++linked_list->m_length;
+    }
 }
 
 void insert_at(LinkedList* linked_list, size_t index, int data)
@@ -83,4 +90,20 @@ void print_linked_list(LinkedList* linked_list)
         current_list_node = current_list_node->m_next;
     }
     printf("\n");
+}
+
+void delete_head(LinkedList* linked_list)
+{
+    if (linked_list->m_head != NULL)
+    {
+        ListNode* temp_list_node = linked_list->m_head;
+        linked_list->m_head = temp_list_node->m_next;
+        --linked_list->m_length;
+        free(temp_list_node);
+    }
+    else
+    {
+        printf("Empty Linked List. Deletion failed.\n");
+        abort();
+    }
 }

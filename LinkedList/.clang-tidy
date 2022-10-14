@@ -1,7 +1,5 @@
 ---
 Checks: "-*,
-    modernize-*,
-    cppcoreguidelines-*,
     clang-analyzer-core*,
     performance-*,
     portability-*,

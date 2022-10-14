@@ -96,14 +96,76 @@ void delete_head(LinkedList* linked_list)
 {
     if (linked_list->m_head != NULL)
     {
-        ListNode* temp_list_node = linked_list->m_head;
-        linked_list->m_head = temp_list_node->m_next;
+        ListNode* deletion_list_node = linked_list->m_head;
+        linked_list->m_head = deletion_list_node->m_next;
         --linked_list->m_length;
-        free(temp_list_node);
+        free(deletion_list_node);
     }
     else
     {
         printf("Empty Linked List. Deletion failed.\n");
         abort();
+    }
+}
+
+void delete_tail(LinkedList* linked_list)
+{
+    if (linked_list->m_tail != NULL)
+    {
+        if (linked_list->m_tail == linked_list->m_head)
+        {
+            free(linked_list->m_tail);
+            linked_list->m_head = NULL;
+            linked_list->m_tail = NULL;
+            --linked_list->m_length;
+        }
+        else
+        {
+            ListNode* current_list_node = linked_list->m_head;
+            while (current_list_node->m_next != linked_list->m_tail)
+            {
+                current_list_node = current_list_node->m_next;
+            }
+            current_list_node->m_next = NULL;
+            free(linked_list->m_tail);
+            linked_list->m_tail = current_list_node;
+            --linked_list->m_length;
+        }
+    }
+    else
+    {
+        printf("Empty Linked List. Deletion failed.\n");
+        abort();
+    }
+}
+
+void delete_at(LinkedList* linked_list, size_t index)
+{
+    if (index >= linked_list->m_length)
+    {
+        printf("It's not possible to delete the element at index %zu "
+               "since the length of the linked list is only %zu.\n",
+               index, linked_list->m_length);
+        abort();
+    }
+    else if (index == 0)
+    {
+        delete_head(linked_list);
+    }
+    else if (index == (linked_list->m_length - 1))
+    {
+        delete_tail(linked_list);
+    }
+    else
+    {
+        ListNode* current_list_node = linked_list->m_head;
+        for (size_t i = 0; i < (index - 1); ++i)
+        {
+            current_list_node = current_list_node->m_next;
+        }
+        ListNode* deletion_list_node = current_list_node->m_next;
+        current_list_node->m_next = current_list_node->m_next->m_next;
+        free(deletion_list_node);
+        --linked_list->m_length;
     }
 }

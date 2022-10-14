@@ -2,6 +2,6 @@
 
 int main(void)
 {
-    test_delete_head();
+    test_delete_at();
     return 0;
 }

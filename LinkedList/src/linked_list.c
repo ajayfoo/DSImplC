@@ -77,7 +77,7 @@ void insert_at(LinkedList* linked_list, size_t index, int data)
 void print_linked_list(LinkedList* linked_list)
 {
     ListNode* current_list_node = linked_list->m_head;
-    for (size_t i = 0; i < linked_list->m_length; ++i)
+    while (current_list_node != NULL)
     {
         printf("%d ", current_list_node->m_data);
         current_list_node = current_list_node->m_next;

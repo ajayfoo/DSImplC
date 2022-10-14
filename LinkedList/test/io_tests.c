@@ -8,9 +8,3 @@ void test_print_linked_list(void)
     insert_after_tail(linked_list, 3);
     print_linked_list(linked_list);
 }
-
-int main(void)
-{
-    test_print_linked_list();
-    return 0;
-}

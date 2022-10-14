@@ -1,6 +1,3 @@
+add_library(linked_list include/linked_list.h linked_list.c)
 
-add_subdirectory(linked_list)
-
-add_executable(run_program run_program.c)
-
-target_link_libraries(run_program PRIVATE linked_list)
+target_include_directories(linked_list PUBLIC include)

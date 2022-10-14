@@ -18,6 +18,6 @@ add_subdirectory(src)
 
 if(DO_TESTS)
     enable_testing()
-    add_subdirectory(test) 
-    target_link_libraries(run_io_tests PRIVATE linked_list)
+    add_subdirectory(test)
+    target_link_libraries(all_tests PRIVATE linked_list)
 endif()

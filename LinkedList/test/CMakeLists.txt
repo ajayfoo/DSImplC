@@ -1,11 +1,17 @@
-add_executable(run_all_tests main.c)
-add_library(all_tests
-    include/io_tests.h
-    include/sloppy_tests.h
-    io_tests.c
-    sloppy_tests.c
+include(FetchContent)
+FetchContent_Declare(
+        gtest
+        GIT_REPOSITORY https://github.com/google/googletest.git
+        GIT_TAG release-1.12.1
 )
 
-target_include_directories(all_tests PUBLIC include)
+FetchContent_MakeAvailable(gtest)
 
-target_link_libraries(run_all_tests PRIVATE all_tests)
+add_executable(all_tests insertion_tests.cpp)
+
+target_link_libraries(
+        all_tests PRIVATE GTest::gtest_main
+)
+
+include(GoogleTest)
+gtest_discover_tests(all_tests)

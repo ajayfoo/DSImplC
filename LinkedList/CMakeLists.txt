@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.20)
 
-project(LinkedList C)
+project(LinkedList)
 
 set(CMAKE_C_STANDARD 99)
 set(CMAKE_C_STANDARD_REQUIRED TRUE)
@@ -17,6 +17,7 @@ endif()
 add_subdirectory(src)
 
 if(DO_TESTS)
+    enable_testing()
     add_subdirectory(test)
     target_link_libraries(all_tests PRIVATE linked_list)
 endif()

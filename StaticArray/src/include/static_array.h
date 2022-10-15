@@ -25,6 +25,6 @@ void print_array(const StaticArray* array);
 
 void update(StaticArray* array, size_t index, int new_ele);
 
-bool delete(StaticArray* array, size_t index);
+bool delete_element_at(StaticArray* array, size_t index);
 
 #endif

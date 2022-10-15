@@ -86,7 +86,7 @@ void update(StaticArray* array, size_t index, int new_ele)
 
 //delete
 
-bool delete(StaticArray* array, size_t index)
+bool delete_element_at(StaticArray* array, size_t index)
 {
     check_index_bounds(array, index);
     for (size_t i = index; i < (array->m_length - 1); ++i)

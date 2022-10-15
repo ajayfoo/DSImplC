@@ -61,9 +61,9 @@ int element_at(StaticArray* array, size_t index)
 
 void print_array(const StaticArray* array)
 {
-    for (int i = 0; i < array->m_length; ++i)
+    for (size_t i = 0; i < array->m_length; ++i)
     {
-        printf("StaticArray[%d]: %d\n", i, array->m_data[i]);
+        printf("StaticArray[%zu]: %d\n", i, array->m_data[i]);
     }
 }
 

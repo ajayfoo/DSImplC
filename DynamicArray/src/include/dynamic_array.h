@@ -30,6 +30,6 @@ DynamicArray* init_dynamic_array(DynamicArray* dynamic_array);
 
 void update(DynamicArray* array, size_t index, int new_ele);
 
-DynamicArray* delete(DynamicArray* array, size_t index);
+DynamicArray* delete_element_at(DynamicArray* array, size_t index);
 
 #endif //DYNAMICARRAY_DYNAMIC_ARRAY_H

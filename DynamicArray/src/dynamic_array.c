@@ -18,7 +18,7 @@ bool array_is_full(DynamicArray* array)
 void copy_array(DynamicArray* src_array, DynamicArray* array)
 {
     array->m_length = src_array->m_length;
-    for (int i = 0; i < src_array->m_length; ++i)
+    for (size_t i = 0; i < src_array->m_length; ++i)
     {
         array->m_data[i] = src_array->m_data[i];
     }
@@ -103,9 +103,9 @@ DynamicArray* insert_at(DynamicArray* dynamic_array, size_t index, int ele)
 void print_array(const DynamicArray* array)
 {
     printf("Array Length: %zu, Capacity: %zu\n", array->m_length, array->m_capacity);
-    for (int i = 0; i < array->m_length; ++i)
+    for (size_t i = 0; i < array->m_length; ++i)
     {
-        printf("StaticArray[%d]: %d\n", i, array->m_data[i]);
+        printf("StaticArray[%zu]: %d\n", i, array->m_data[i]);
     }
 }
 
@@ -143,7 +143,7 @@ void update(DynamicArray* array, size_t index, int new_ele)
 
 //delete
 
-DynamicArray* delete(DynamicArray* array, size_t index)
+DynamicArray* delete_element_at(DynamicArray* array, size_t index)
 {
     if (index >= array->m_length)
     {

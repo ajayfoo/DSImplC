@@ -7,11 +7,18 @@ FetchContent_Declare(
 
 FetchContent_MakeAvailable(gtest)
 
-add_executable(all_tests insertion_tests.cpp)
+add_executable(run_io_tests io_tests.c)
+add_executable(run_non_io_tests insertion_tests.cpp)
 
 target_link_libraries(
-        all_tests PRIVATE GTest::gtest_main
+        run_non_io_tests PRIVATE GTest::gtest_main
 )
 
 include(GoogleTest)
-gtest_discover_tests(all_tests)
+gtest_discover_tests(run_non_io_tests)
+
+if (MSVC)
+    target_compile_options(run_io_tests PRIVATE /W4 /WX)
+else()
+    target_compile_options(run_io_tests PRIVATE -Wall -Wextra -pedantic -Werror )
+endif()

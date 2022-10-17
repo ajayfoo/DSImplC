@@ -116,6 +116,14 @@ void print_doubly_list(DoublyList* doubly_list)
 ListNode* delete_and_return_next_list_node(ListNode* deletion_list_node)
 {
     ListNode* next_list_node = deletion_list_node->m_next;
+    if (deletion_list_node->m_prev != NULL)
+    {
+        deletion_list_node->m_prev->m_next = deletion_list_node->m_next;
+    }
+    if (deletion_list_node->m_next != NULL)
+    {
+        deletion_list_node->m_next->m_prev = deletion_list_node->m_prev;
+    }
     free(deletion_list_node);
     return next_list_node;
 }
@@ -128,7 +136,7 @@ void clear_doubly_list(DoublyList* doubly_list)
         current_list_node = delete_and_return_next_list_node(current_list_node);
     }
     doubly_list->m_head = NULL;
-    doubly_list->m_head = NULL;
+    doubly_list->m_tail = NULL;
     doubly_list->m_length = 0;
 }
 
@@ -193,8 +201,19 @@ void delete_at(DoublyList* doubly_list, size_t index)
             current_list_node = current_list_node->m_next;
         }
         ListNode* deletion_list_node = current_list_node->m_next;
-        current_list_node->m_next = current_list_node->m_next->m_next;
+        current_list_node->m_next = delete_and_return_next_list_node(deletion_list_node);
         free(deletion_list_node);
         --doubly_list->m_length;
     }
+}
+
+DoublyList* get_dummy_doubly_list(void)
+{
+    DoublyList* new_doubly_list = get_new_doubly_list();
+    insert_after_tail(new_doubly_list, 1);
+    insert_after_tail(new_doubly_list, 2);
+    insert_after_tail(new_doubly_list, 3);
+    insert_after_tail(new_doubly_list, 4);
+    insert_after_tail(new_doubly_list, 5);
+    return new_doubly_list;
 }

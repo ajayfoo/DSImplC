@@ -19,19 +19,39 @@ CircularList* get_new_circular_list(void)
     return new_circular_list;
 }
 
+void check_for_null(const CircularList* circular_list)
+{
+    if (circular_list == NULL)
+    {
+        printf("NULL passed instead of a circular list. Exiting...\n");
+        abort();
+    }
+}
+
+void check_for_null_and_empty_list(const CircularList* circular_list)
+{
+    check_for_null(circular_list);
+    if (circular_list->m_tail == NULL)
+    {
+        printf("Empty list passed instead of non-empty list."
+               "\nExiting...\n");
+        abort();
+    }
+}
+
 void insert_at_head(CircularList* circular_list, int data)
 {
+    check_for_null(circular_list);
     ListNode* new_list_node = get_new_list_node(data);
-    if (circular_list->m_head == NULL)
+    if (circular_list->m_tail == NULL)
     {
         new_list_node->m_next = new_list_node;
         circular_list->m_tail = new_list_node;
     } else
     {
-        new_list_node->m_next = circular_list->m_head;
+        new_list_node->m_next = circular_list->m_tail->m_next;
         circular_list->m_tail->m_next = new_list_node;
     }
-    circular_list->m_head = new_list_node;
     ++circular_list->m_length;
 }
 
@@ -44,6 +64,7 @@ void insert_after(ListNode* list_node, int data)
 
 void insert_after_tail(CircularList* circular_list, int data)
 {
+    check_for_null(circular_list);
     if (circular_list->m_tail == NULL)
     {
         insert_at_head(circular_list, data);
@@ -57,6 +78,7 @@ void insert_after_tail(CircularList* circular_list, int data)
 
 void insert_at(CircularList* circular_list, size_t index, int data)
 {
+    check_for_null(circular_list);
     if (index > circular_list->m_length)
     {
         printf("It's not possible to insert at index %zu "
@@ -72,7 +94,7 @@ void insert_at(CircularList* circular_list, size_t index, int data)
         insert_after_tail(circular_list, data);
     } else
     {
-        ListNode* current_list_node = circular_list->m_head;
+        ListNode* current_list_node = circular_list->m_tail->m_next;
         for (size_t i = 0; i < (index - 1); ++i)
         {
             current_list_node = current_list_node->m_next;
@@ -84,12 +106,16 @@ void insert_at(CircularList* circular_list, size_t index, int data)
 
 void print_circular_list(CircularList* circular_list)
 {
-    ListNode* current_list_node = circular_list->m_head;
-    do
+    check_for_null(circular_list);
+    if (circular_list->m_tail != NULL)
     {
-        printf("%d ", current_list_node->m_data);
-        current_list_node = current_list_node->m_next;
-    } while (current_list_node != circular_list->m_head);
+        ListNode* current_list_node = circular_list->m_tail->m_next;
+        do
+        {
+            printf("%d ", current_list_node->m_data);
+            current_list_node = current_list_node->m_next;
+        } while (current_list_node != circular_list->m_tail->m_next);
+    }
     printf("\n");
 }
 
@@ -102,9 +128,15 @@ ListNode* delete_and_return_next_list_node(ListNode* deletion_list_node)
 
 void clear_circular_list(CircularList* circular_list)
 {
-    ListNode* current_list_node = circular_list->m_head;
+    check_for_null(circular_list);
+    ListNode* current_list_node = circular_list->m_tail;
     while (current_list_node != NULL)
     {
+        if (current_list_node == current_list_node->m_next)
+        {
+            free(current_list_node);
+            break;
+        }
         current_list_node = delete_and_return_next_list_node(current_list_node);
     }
     circular_list->m_head = NULL;
@@ -114,45 +146,41 @@ void clear_circular_list(CircularList* circular_list)
 
 void delete_head(CircularList* circular_list)
 {
-    if (circular_list->m_head != NULL)
+    check_for_null_and_empty_list(circular_list);
+    if (circular_list->m_tail == circular_list->m_tail->m_next)
     {
-        circular_list->m_head = delete_and_return_next_list_node(circular_list->m_head);
-        --circular_list->m_length;
+        free(circular_list->m_tail);
+        circular_list->m_tail = NULL;
     } else
     {
-        printf("Empty Linked List. Deletion failed.\n");
-        abort();
+        circular_list->m_tail->m_next = delete_and_return_next_list_node(circular_list->m_tail->m_next);
     }
+    --circular_list->m_length;
 }
 
 void delete_tail(CircularList* circular_list)
 {
-    if (circular_list->m_tail != NULL)
+    check_for_null_and_empty_list(circular_list);
+    if (circular_list->m_tail == circular_list->m_head)
     {
-        if (circular_list->m_tail == circular_list->m_head)
-        {
-            clear_circular_list(circular_list);
-        } else
-        {
-            ListNode* current_list_node = circular_list->m_head;
-            while (current_list_node->m_next != circular_list->m_tail)
-            {
-                current_list_node = current_list_node->m_next;
-            }
-            current_list_node->m_next = NULL;
-            free(circular_list->m_tail);
-            circular_list->m_tail = current_list_node;
-            --circular_list->m_length;
-        }
+        clear_circular_list(circular_list);
     } else
     {
-        printf("Empty Linked List. Deletion failed.\n");
-        abort();
+        ListNode* current_list_node = circular_list->m_head;
+        while (current_list_node->m_next != circular_list->m_tail)
+        {
+            current_list_node = current_list_node->m_next;
+        }
+        current_list_node->m_next = NULL;
+        free(circular_list->m_tail);
+        circular_list->m_tail = current_list_node;
+        --circular_list->m_length;
     }
 }
 
 void delete_at(CircularList* circular_list, size_t index)
 {
+    check_for_null_and_empty_list(circular_list);
     if (index >= circular_list->m_length)
     {
         printf("It's not possible to delete the element at index %zu "

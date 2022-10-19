@@ -128,17 +128,16 @@ ListNode* delete_and_return_next_list_node(ListNode* deletion_list_node)
 
 void clear_circular_list(CircularList* circular_list)
 {
-    check_for_null(circular_list);
-    ListNode* current_list_node = circular_list->m_tail;
-    while (current_list_node != NULL)
+    check_for_null_and_empty_list(circular_list);
+    ListNode* head_node = circular_list->m_tail->m_next;
+    ListNode* current_list_node = head_node;
+    ListNode* next_list_node = NULL;
+    do
     {
-        if (current_list_node == current_list_node->m_next)
-        {
-            free(current_list_node);
-            break;
-        }
-        current_list_node = delete_and_return_next_list_node(current_list_node);
-    }
+        next_list_node = current_list_node->m_next;
+        free(current_list_node);
+        current_list_node = next_list_node;
+    } while (current_list_node != head_node);
     circular_list->m_head = NULL;
     circular_list->m_head = NULL;
     circular_list->m_length = 0;
@@ -161,7 +160,7 @@ void delete_head(CircularList* circular_list)
 void delete_tail(CircularList* circular_list)
 {
     check_for_null_and_empty_list(circular_list);
-    if (circular_list->m_tail == circular_list->m_head)
+    if (circular_list->m_tail == circular_list->m_tail->m_next)
     {
         clear_circular_list(circular_list);
     } else

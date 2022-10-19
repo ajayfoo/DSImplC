@@ -3,6 +3,7 @@
 //
 #include "circular_list.h"
 #include <stdio.h>
+#include <stdlib.h>
 
 CircularList* get_dummy_circular_list(void)
 {
@@ -27,7 +28,7 @@ void test_print_circular_list(void)
     delete_head(new_circular_list);
     printf("After deleting the head thrice: ");
     print_circular_list(new_circular_list);
-    //clear_circular_list(new_circular_list);
+    clear_circular_list(new_circular_list);
 }
 
 int main(void)

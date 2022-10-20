@@ -3,7 +3,6 @@
 //
 #include "circular_list.h"
 #include <stdio.h>
-#include <stdlib.h>
 
 CircularList* get_dummy_circular_list(void)
 {

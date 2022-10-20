@@ -11,4 +11,5 @@ TEST(InsertionTest, InsertOneElement)
     ASSERT_EQ(circular_list->m_length, 0);
     insert_at_head(circular_list, 8);
     ASSERT_EQ(circular_list->m_length, 1);
+    clear_circular_list(circular_list);
 }

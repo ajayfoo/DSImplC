@@ -136,6 +136,8 @@ void clear_circular_list(CircularList* circular_list)
     } while (current_list_node != head_node);
     circular_list->m_tail = NULL;
     circular_list->m_length = 0;
+    free(circular_list);
+    circular_list=NULL;
 }
 
 void delete_head(CircularList* circular_list)

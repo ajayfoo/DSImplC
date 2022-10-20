@@ -19,6 +19,8 @@ typedef struct
     size_t m_length;
 } DoublyList;
 
+void init_doubly_list(DoublyList* doubly_list);
+
 DoublyList* get_new_doubly_list(void);
 
 void insert_at_head(DoublyList* doubly_list, int data);

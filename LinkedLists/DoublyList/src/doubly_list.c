@@ -11,6 +11,13 @@ ListNode* get_new_list_node(int data)
     return new_list_node;
 }
 
+void init_doubly_list(DoublyList* doubly_list)
+{
+    doubly_list->m_head = NULL;
+    doubly_list->m_tail = NULL;
+    doubly_list->m_length = 0;
+}
+
 DoublyList* get_new_doubly_list(void)
 {
     DoublyList* new_doubly_list = (DoublyList*) malloc(sizeof(DoublyList));
@@ -205,15 +212,4 @@ void delete_at(DoublyList* doubly_list, size_t index)
         free(deletion_list_node);
         --doubly_list->m_length;
     }
-}
-
-DoublyList* get_dummy_doubly_list(void)
-{
-    DoublyList* new_doubly_list = get_new_doubly_list();
-    insert_after_tail(new_doubly_list, 1);
-    insert_after_tail(new_doubly_list, 2);
-    insert_after_tail(new_doubly_list, 3);
-    insert_after_tail(new_doubly_list, 4);
-    insert_after_tail(new_doubly_list, 5);
-    return new_doubly_list;
 }

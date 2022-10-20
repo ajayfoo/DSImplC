@@ -10,7 +10,6 @@ FetchContent_MakeAvailable(gtest)
 add_executable(run_io_tests io_tests.c)
 add_executable(run_non_io_tests
         insertion_tests.cpp
-        deletion_tests.cpp
         )
 
 target_link_libraries(

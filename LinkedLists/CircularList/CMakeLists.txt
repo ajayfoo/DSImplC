@@ -11,9 +11,9 @@ set(DO_TESTS TRUE)
 
 add_subdirectory(src)
 
-if(DO_TESTS)
+if (DO_TESTS)
     enable_testing()
     add_subdirectory(test)
-    target_link_libraries(run_io_tests PRIVATE circular_list)
-    target_link_libraries(run_non_io_tests PRIVATE circular_list)
-endif()
+    target_link_libraries(io_tests PRIVATE circular_list)
+    target_link_libraries(non_io_tests PRIVATE circular_list)
+endif ()

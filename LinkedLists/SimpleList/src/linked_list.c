@@ -107,7 +107,7 @@ void clear_linked_list(LinkedList* linked_list)
         current_list_node = delete_and_return_next_list_node(current_list_node);
     }
     linked_list->m_head = NULL;
-    linked_list->m_head = NULL;
+    linked_list->m_tail = NULL;
     linked_list->m_length = 0;
 }
 

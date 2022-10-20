@@ -26,7 +26,11 @@ void test_print_circular_list(void)
     delete_head(new_circular_list);
     delete_head(new_circular_list);
     delete_head(new_circular_list);
-    printf("After deleting the head thrice: ");
+    delete_tail(new_circular_list);
+    printf("After deleting the head thrice, tail once: ");
+    print_circular_list(new_circular_list);
+    delete_at(new_circular_list, 1);
+    printf("After deleting the element at [1]: ");
     print_circular_list(new_circular_list);
     clear_circular_list(new_circular_list);
 }

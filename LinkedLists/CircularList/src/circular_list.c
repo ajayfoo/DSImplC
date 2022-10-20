@@ -12,8 +12,7 @@ ListNode* get_new_list_node(int data)
 
 CircularList* get_new_circular_list(void)
 {
-    CircularList* new_circular_list = (CircularList*) malloc(sizeof(CircularList));
-    new_circular_list->m_head = NULL;
+    CircularList* new_circular_list = malloc(sizeof(CircularList));
     new_circular_list->m_tail = NULL;
     new_circular_list->m_length = 0;
     return new_circular_list;
@@ -131,15 +130,11 @@ void clear_circular_list(CircularList* circular_list)
     check_for_null_and_empty_list(circular_list);
     ListNode* head_node = circular_list->m_tail->m_next;
     ListNode* current_list_node = head_node;
-    ListNode* next_list_node = NULL;
     do
     {
-        next_list_node = current_list_node->m_next;
-        free(current_list_node);
-        current_list_node = next_list_node;
+        current_list_node = delete_and_return_next_list_node(current_list_node);
     } while (current_list_node != head_node);
-    circular_list->m_head = NULL;
-    circular_list->m_head = NULL;
+    circular_list->m_tail = NULL;
     circular_list->m_length = 0;
 }
 
@@ -165,12 +160,12 @@ void delete_tail(CircularList* circular_list)
         clear_circular_list(circular_list);
     } else
     {
-        ListNode* current_list_node = circular_list->m_head;
-        while (current_list_node->m_next != circular_list->m_tail)
+        ListNode* current_list_node = circular_list->m_tail->m_next;
+        do
         {
             current_list_node = current_list_node->m_next;
-        }
-        current_list_node->m_next = NULL;
+        } while (current_list_node->m_next != circular_list->m_tail);
+        current_list_node->m_next = circular_list->m_tail->m_next;
         free(circular_list->m_tail);
         circular_list->m_tail = current_list_node;
         --circular_list->m_length;
@@ -194,7 +189,7 @@ void delete_at(CircularList* circular_list, size_t index)
         delete_tail(circular_list);
     } else
     {
-        ListNode* current_list_node = circular_list->m_head;
+        ListNode* current_list_node = circular_list->m_tail->m_next;
         for (size_t i = 0; i < (index - 1); ++i)
         {
             current_list_node = current_list_node->m_next;

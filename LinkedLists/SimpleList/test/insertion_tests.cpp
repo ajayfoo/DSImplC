@@ -7,8 +7,9 @@ extern "C"
 
 TEST(InsertionTest, InsertOneElement)
 {
-    LinkedList* linked_list=get_new_linked_list();
-    insert_at_head(linked_list,5);
-    ASSERT_EQ(1,linked_list->m_length);
-    clear_linked_list(linked_list);
+    LinkedList linked_list;
+    init_linked_list(&linked_list);
+    insert_at_head(&linked_list,5);
+    ASSERT_EQ(1,linked_list.m_length);
+    clear_linked_list(&linked_list);
 }

@@ -10,13 +10,11 @@ ListNode* get_new_list_node(int data)
     return new_list_node;
 }
 
-LinkedList* get_new_linked_list(void)
+void init_linked_list(LinkedList* linked_list)
 {
-    LinkedList* new_linked_list = (LinkedList*)malloc(sizeof(LinkedList));
-    new_linked_list->m_head = NULL;
-    new_linked_list->m_tail = NULL;
-    new_linked_list->m_length = 0;
-    return new_linked_list;
+    linked_list->m_head=NULL;
+    linked_list->m_tail=NULL;
+    linked_list->m_length=0;
 }
 
 void insert_after(ListNode* list_node, int data)

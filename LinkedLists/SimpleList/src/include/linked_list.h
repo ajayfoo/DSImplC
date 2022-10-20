@@ -18,7 +18,7 @@ typedef struct
     size_t m_length;
 } LinkedList;
 
-LinkedList* get_new_linked_list(void);
+void init_linked_list(LinkedList* linked_list);
 void insert_at_head(LinkedList* linked_list, int data);
 void insert_after_tail(LinkedList* linked_list, int data);
 void insert_at(LinkedList* linked_list, size_t index, int data);

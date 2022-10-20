@@ -6,6 +6,7 @@
 
 void init_dummy_doubly_list(DoublyList* doubly_list)
 {
+    init_doubly_list(doubly_list);
     insert_after_tail(doubly_list, 1);
     insert_after_tail(doubly_list, 2);
     insert_after_tail(doubly_list, 3);

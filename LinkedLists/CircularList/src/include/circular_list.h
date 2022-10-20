@@ -17,7 +17,7 @@ typedef struct
     size_t m_length;
 } CircularList;
 
-CircularList* get_new_circular_list(void);
+void init_circular_list(CircularList* circular_list);
 
 void insert_at_head(CircularList* circular_list, int data);
 

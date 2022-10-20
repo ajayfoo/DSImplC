@@ -10,12 +10,10 @@ ListNode* get_new_list_node(int data)
     return new_list_node;
 }
 
-CircularList* get_new_circular_list(void)
+void init_circular_list(CircularList* circular_list)
 {
-    CircularList* new_circular_list = malloc(sizeof(CircularList));
-    new_circular_list->m_tail = NULL;
-    new_circular_list->m_length = 0;
-    return new_circular_list;
+    circular_list->m_tail = NULL;
+    circular_list->m_length = 0;
 }
 
 void check_for_null(const CircularList* circular_list)
@@ -136,8 +134,6 @@ void clear_circular_list(CircularList* circular_list)
     } while (current_list_node != head_node);
     circular_list->m_tail = NULL;
     circular_list->m_length = 0;
-    free(circular_list);
-    circular_list=NULL;
 }
 
 void delete_head(CircularList* circular_list)

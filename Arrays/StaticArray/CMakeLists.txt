@@ -16,8 +16,9 @@ endif()
 add_subdirectory(src)
 
 if(DO_TESTS)
+    enable_testing()
     add_subdirectory(test)
-    target_link_libraries(run_io_tests PRIVATE static_array)
-    target_link_libraries(run_all_tests PRIVATE static_array)
+    target_link_libraries(io_tests PRIVATE static_array)
+    target_link_libraries(non_io_tests PRIVATE static_array)
 endif()
 

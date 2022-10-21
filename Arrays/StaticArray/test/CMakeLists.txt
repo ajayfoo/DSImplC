@@ -1,5 +1,3 @@
-cmake_minimum_required(VERSION 3.20)
-
 include(FetchContent)
 FetchContent_Declare(
         gtest
@@ -9,16 +7,21 @@ FetchContent_Declare(
 
 FetchContent_MakeAvailable(gtest)
 
-enable_testing()
-
-add_executable(run_io_tests io_tests.c)
+add_executable(io_tests io_tests.c)
 add_executable(
-        run_all_tests
+        non_io_tests
         insertion_tests.cpp
 )
+
+if (MSVC)
+    target_compile_options(non_io_tests PRIVATE )
+else()
+    target_compile_options(non_io_tests PRIVATE )
+endif()
+
 target_link_libraries(
-        run_all_tests PRIVATE GTest::gtest_main
+        non_io_tests PRIVATE GTest::gtest_main
 )
 
 include(GoogleTest)
-gtest_discover_tests(run_all_tests)
+gtest_discover_tests(non_io_tests)

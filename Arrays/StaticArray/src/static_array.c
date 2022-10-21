@@ -17,6 +17,11 @@ bool array_is_full(const StaticArray* array)
     return STATIC_ARRAY_CAPACITY == array->m_length;
 }
 
+void init_static_array(StaticArray* static_array)
+{
+    static_array->m_length=0;
+}
+
 //create
 
 bool insert(StaticArray* array, int ele)

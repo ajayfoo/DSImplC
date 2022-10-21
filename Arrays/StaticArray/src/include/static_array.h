@@ -12,6 +12,7 @@ typedef struct
     int m_data[STATIC_ARRAY_CAPACITY];
 } StaticArray;
 
+void init_static_array(StaticArray* static_array);
 
 bool insert(StaticArray* array, int ele);
 

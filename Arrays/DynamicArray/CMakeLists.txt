@@ -12,7 +12,7 @@ add_subdirectory(src)
 
 if(DO_TESTS)
     add_subdirectory(test)
-    target_link_libraries(run_io_tests PRIVATE dynamic_array)
-    target_link_libraries(run_non_io_tests PRIVATE dynamic_array)
+    target_link_libraries(io_tests PRIVATE dynamic_array)
+    target_link_libraries(non_io_tests PRIVATE dynamic_array)
 endif()
 

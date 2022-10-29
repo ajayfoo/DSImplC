@@ -5,6 +5,7 @@ project(StaticArray)
 add_subdirectory(src)
 
 if(DO_TESTS)
+    enable_testing()
     add_subdirectory(tests)
     target_link_libraries(io_tests PRIVATE static_array)
     target_link_libraries(non_io_tests PRIVATE static_array)

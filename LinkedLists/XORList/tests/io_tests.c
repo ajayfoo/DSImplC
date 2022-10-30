@@ -19,7 +19,7 @@ void test_print_xor_list(void)
     XORList xor_list;
     init_dummy_xor_list(&xor_list);
     print_xor_list(&xor_list);
-    // clear_xor_list(&xor_list);
+    clear_xor_list(&xor_list);
 }
 
 void test_delete_head(void)
@@ -57,6 +57,6 @@ void test_delete_at(void)
 
 int main(void)
 {
-    test_delete_at();
+    test_print_xor_list();
     return 0;
 }

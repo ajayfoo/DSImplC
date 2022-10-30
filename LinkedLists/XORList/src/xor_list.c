@@ -157,12 +157,11 @@ void print_xor_list_rev(XORList* xor_list)
         xor_of_list_nodes(next_list_node, current_list_node->m_diff);
     while (current_list_node != xor_list->m_head)
     {
-        printf("%d ", current_list_node->m_data);
-
         next_list_node = current_list_node;
         current_list_node = prev_list_node;
         prev_list_node =
             xor_of_list_nodes(next_list_node, current_list_node->m_diff);
+        printf("%d ", next_list_node->m_data);
     }
     printf("%d\n", current_list_node->m_data);
 }
@@ -176,12 +175,12 @@ void print_xor_list(XORList* xor_list)
         xor_of_list_nodes(prev_list_node, current_list_node->m_diff);
     while (current_list_node != xor_list->m_tail)
     {
-        printf("%d ", current_list_node->m_data);
 
         prev_list_node = current_list_node;
         current_list_node = next_list_node;
         next_list_node =
             xor_of_list_nodes(prev_list_node, current_list_node->m_diff);
+        printf("%d ", prev_list_node->m_data);
     }
     printf("%d\n", current_list_node->m_data);
     print_xor_list_rev(xor_list);
@@ -209,21 +208,22 @@ void delete_middle_node(XORList* xor_list, ListNode* list_node)
     free(list_node);
 }
 
-// void clear_xor_list(XORList* xor_list)
-// {
-//     ListNode* prev_list_node = NULL;
-//     ListNode* current_list_node = xor_list->m_head;
-//     ListNode* next_list_node =
-//         xor_of_list_nodes(prev_list_node, current_list_node->m_diff);
-//     while (current_list_node != xor_list->m_tail)
-//     {
-//         prev_list_node = current_list_node;
-//         current_list_node = next_list_node;
-//         next_list_node =
-//             xor_of_list_nodes(prev_list_node, current_list_node->m_diff);
-//     }
-//     printf("%d\n", current_list_node->m_data);
-// }
+void clear_xor_list(XORList* xor_list)
+{
+    ListNode* prev_list_node = NULL;
+    ListNode* current_list_node = xor_list->m_head;
+    ListNode* next_list_node =
+        xor_of_list_nodes(prev_list_node, current_list_node->m_diff);
+    while (current_list_node != xor_list->m_tail)
+    {
+        prev_list_node = current_list_node;
+        current_list_node = next_list_node;
+        next_list_node =
+            xor_of_list_nodes(prev_list_node, current_list_node->m_diff);
+        free(prev_list_node);
+    }
+    free(current_list_node);
+}
 
 void delete_head(XORList* xor_list)
 {

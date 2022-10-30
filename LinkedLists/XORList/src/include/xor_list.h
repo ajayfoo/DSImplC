@@ -36,8 +36,6 @@ void delete_tail(XORList* xor_list);
 
 void delete_at(XORList* xor_list, size_t index);
 
-// void clear_xor_list(XORList* xor_list);
-
-// XORList* get_dummy_xor_list(void);
+void clear_xor_list(XORList* xor_list);
 
 #endif

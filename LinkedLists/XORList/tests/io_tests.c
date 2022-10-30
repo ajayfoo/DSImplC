@@ -1,28 +1,29 @@
 //
 // Created by ajay on 10/16/22.
 //
-#include "linked_list.h"
+#include "xor_list.h"
 
-void init_dummy_linked_list(LinkedList* linked_list)
+void init_dummy_xor_list(XORList* xor_list)
 {
-    init_linked_list(linked_list);
-    insert_after_tail(linked_list,1);
-    insert_after_tail(linked_list,2);
-    insert_after_tail(linked_list,3);
-    insert_after_tail(linked_list,4);
-    insert_after_tail(linked_list,5);
+    init_xor_list(xor_list);
+    insert_after_tail(xor_list, 1);
+    insert_after_tail(xor_list, 2);
+    insert_after_tail(xor_list, 3);
+    insert_after_tail(xor_list, 4);
+    insert_after_tail(xor_list, 4 + 1);
+    insert_at(xor_list, 2, 4 * 4);
 }
 
-void test_print_linked_list(void)
+void test_print_xor_list(void)
 {
-    LinkedList linked_list;
-    init_dummy_linked_list(&linked_list);
-    print_linked_list(&linked_list);
-    clear_linked_list(&linked_list);
+    XORList xor_list;
+    init_dummy_xor_list(&xor_list);
+    print_xor_list(&xor_list);
+    // clear_xor_list(&xor_list);
 }
 
 int main(void)
 {
-    test_print_linked_list();
+    test_print_xor_list();
     return 0;
 }

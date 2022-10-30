@@ -31,6 +31,22 @@ ListNode* xor_of_list_nodes(const ListNode* list_node_a,
     return (ListNode*)((size_t)list_node_a ^ (size_t)list_node_b);
 }
 
+ListNode* get_prev_list_node(const XORList* xor_list, const ListNode* list_node)
+{
+    ListNode* prev_list_node = NULL;
+    ListNode* current_list_node = xor_list->m_head;
+    ListNode* next_list_node =
+        xor_of_list_nodes(prev_list_node, current_list_node->m_diff);
+    while (current_list_node != list_node)
+    {
+        prev_list_node = current_list_node;
+        current_list_node = next_list_node;
+        next_list_node =
+            xor_of_list_nodes(prev_list_node, current_list_node->m_diff);
+    }
+    return prev_list_node;
+}
+
 ListNode* get_next_list_node(const XORList* xor_list, const ListNode* list_node)
 {
     ListNode* prev_list_node = NULL;
@@ -132,17 +148,24 @@ void insert_at(XORList* xor_list, size_t index, int data)
     }
 }
 
-// void print_xor_list_rev(XORList* xor_list)
-// {
-//     printf("XOR Linked List in reverse order: ");
-//     ListNode* current_list_node = xor_list->m_tail;
-//     while (current_list_node != NULL)
-//     {
-//         printf("%d ", current_list_node->m_data);
-//         current_list_node = current_list_node->m_prev;
-//     }
-//     printf("\n");
-// }
+void print_xor_list_rev(XORList* xor_list)
+{
+    printf("XOR Linked List in reverse order: ");
+    ListNode* next_list_node = NULL;
+    ListNode* current_list_node = xor_list->m_tail;
+    ListNode* prev_list_node =
+        xor_of_list_nodes(next_list_node, current_list_node->m_diff);
+    while (current_list_node != xor_list->m_head)
+    {
+        printf("%d ", current_list_node->m_data);
+
+        next_list_node = current_list_node;
+        current_list_node = prev_list_node;
+        prev_list_node =
+            xor_of_list_nodes(next_list_node, current_list_node->m_diff);
+    }
+    printf("%d\n", current_list_node->m_data);
+}
 
 void print_xor_list(XORList* xor_list)
 {
@@ -161,6 +184,7 @@ void print_xor_list(XORList* xor_list)
             xor_of_list_nodes(prev_list_node, current_list_node->m_diff);
     }
     printf("%d\n", current_list_node->m_data);
+    print_xor_list_rev(xor_list);
 }
 
 // ListNode* delete_and_return_next_list_node(ListNode* deletion_list_node)

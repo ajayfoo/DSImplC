@@ -30,11 +30,11 @@ void insert_at(XORList* xor_list, size_t index, int data);
 
 void print_xor_list(XORList* xor_list);
 
-// void delete_head(XORList* xor_list);
+void delete_head(XORList* xor_list);
 
-// void delete_tail(XORList* xor_list);
+void delete_tail(XORList* xor_list);
 
-// void delete_at(XORList* xor_list, size_t index);
+void delete_at(XORList* xor_list, size_t index);
 
 // void clear_xor_list(XORList* xor_list);
 

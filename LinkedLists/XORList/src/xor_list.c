@@ -187,105 +187,127 @@ void print_xor_list(XORList* xor_list)
     print_xor_list_rev(xor_list);
 }
 
-// ListNode* delete_and_return_next_list_node(ListNode* deletion_list_node)
-// {
-//     ListNode* next_list_node = deletion_list_node->m_next;
-//     if (deletion_list_node->m_prev != NULL)
-//     {
-//         deletion_list_node->m_prev->m_next = deletion_list_node->m_next;
-//     }
-//     if (deletion_list_node->m_next != NULL)
-//     {
-//         deletion_list_node->m_next->m_prev = deletion_list_node->m_prev;
-//     }
-//     free(deletion_list_node);
-//     return next_list_node;
-// }
+void delete_middle_node(XORList* xor_list, ListNode* list_node)
+{
+    ListNode* next_list_node = get_next_list_node(xor_list, list_node);
+    ListNode* prev_list_node =
+        xor_of_list_nodes(list_node->m_diff, next_list_node);
+    const ListNode* prev_prev_list_node =
+        xor_of_list_nodes(prev_list_node->m_diff, list_node);
+    if (prev_prev_list_node != NULL)
+    {
+        prev_list_node->m_diff =
+            xor_of_list_nodes(prev_prev_list_node, next_list_node);
+    }
+    const ListNode* next_next_list_node =
+        xor_of_list_nodes(list_node, next_list_node->m_diff);
+    if (next_next_list_node != NULL)
+    {
+        next_list_node->m_diff =
+            xor_of_list_nodes(prev_list_node, next_next_list_node);
+    }
+    free(list_node);
+}
 
 // void clear_xor_list(XORList* xor_list)
 // {
+//     ListNode* prev_list_node = NULL;
 //     ListNode* current_list_node = xor_list->m_head;
-//     while (current_list_node != NULL)
+//     ListNode* next_list_node =
+//         xor_of_list_nodes(prev_list_node, current_list_node->m_diff);
+//     while (current_list_node != xor_list->m_tail)
 //     {
-//         current_list_node =
-//         delete_and_return_next_list_node(current_list_node);
+//         prev_list_node = current_list_node;
+//         current_list_node = next_list_node;
+//         next_list_node =
+//             xor_of_list_nodes(prev_list_node, current_list_node->m_diff);
 //     }
-//     xor_list->m_head = NULL;
-//     xor_list->m_tail = NULL;
-//     xor_list->m_length = 0;
+//     printf("%d\n", current_list_node->m_data);
 // }
 
-// void delete_head(XORList* xor_list)
-// {
-//     if (xor_list->m_head != NULL)
-//     {
-//         xor_list->m_head =
-//         delete_and_return_next_list_node(xor_list->m_head);
-//         --xor_list->m_length;
-//     }
-//     else
-//     {
-//         printf("Empty Linked List. Deletion failed.\n");
-//         abort();
-//     }
-// }
+void delete_head(XORList* xor_list)
+{
+    if (xor_list->m_head != NULL)
+    {
+        ListNode* list_node = xor_list->m_head;
+        ListNode* next_list_node = get_next_list_node(xor_list, list_node);
+        if (next_list_node != NULL)
+        {
+            const ListNode* next_next_list_node =
+                xor_of_list_nodes(list_node, next_list_node->m_diff);
+            next_list_node->m_diff =
+                xor_of_list_nodes(NULL, next_next_list_node);
+        }
+        xor_list->m_head = next_list_node;
+        --xor_list->m_length;
+        free(list_node);
+    }
+    else
+    {
+        printf("Empty Linked List. Deletion failed.\n");
+        abort();
+    }
+}
 
-// void delete_tail(XORList* xor_list)
-// {
-//     if (xor_list->m_tail != NULL)
-//     {
-//         if (xor_list->m_tail == xor_list->m_head)
-//         {
-//             clear_xor_list(xor_list);
-//         }
-//         else
-//         {
-//             ListNode* current_list_node = xor_list->m_head;
-//             while (current_list_node->m_next != xor_list->m_tail)
-//             {
-//                 current_list_node = current_list_node->m_next;
-//             }
-//             current_list_node->m_next = NULL;
-//             free(xor_list->m_tail);
-//             xor_list->m_tail = current_list_node;
-//             --xor_list->m_length;
-//         }
-//     }
-//     else
-//     {
-//         printf("Empty Linked List. Deletion failed.\n");
-//         abort();
-//     }
-// }
+void delete_tail(XORList* xor_list)
+{
+    if (xor_list->m_tail != NULL)
+    {
+        if (xor_list->m_tail == xor_list->m_head)
+        {
+            delete_head(xor_list);
+        }
+        else
+        {
+            ListNode* list_node = xor_list->m_tail;
+            ListNode* prev_list_node = get_prev_list_node(xor_list, list_node);
+            ListNode* prev_prev_list_node =
+                xor_of_list_nodes(prev_list_node->m_diff, list_node);
+            prev_list_node->m_diff =
+                xor_of_list_nodes(prev_prev_list_node, NULL);
+            free(list_node);
+            xor_list->m_tail = prev_list_node;
+            --xor_list->m_length;
+        }
+    }
+    else
+    {
+        printf("Empty Linked List. Deletion failed.\n");
+        abort();
+    }
+}
 
-// void delete_at(XORList* xor_list, size_t index)
-// {
-//     if (index >= xor_list->m_length)
-//     {
-//         printf("It's not possible to delete the element at index %zu "
-//                "since the length of the linked list is only %zu.\n",
-//                index, xor_list->m_length);
-//         abort();
-//     }
-//     else if (index == 0)
-//     {
-//         delete_head(xor_list);
-//     }
-//     else if (index == (xor_list->m_length - 1))
-//     {
-//         delete_tail(xor_list);
-//     }
-//     else
-//     {
-//         ListNode* current_list_node = xor_list->m_head;
-//         for (size_t i = 0; i < (index - 1); ++i)
-//         {
-//             current_list_node = current_list_node->m_next;
-//         }
-//         ListNode* deletion_list_node = current_list_node->m_next;
-//         current_list_node->m_next =
-//             delete_and_return_next_list_node(deletion_list_node);
-//         free(deletion_list_node);
-//         --xor_list->m_length;
-//     }
-// }
+void delete_at(XORList* xor_list, size_t index)
+{
+    if (index >= xor_list->m_length)
+    {
+        printf("It's not possible to delete the element at index %zu "
+               "since the length of the linked list is only %zu.\n",
+               index, xor_list->m_length);
+        abort();
+    }
+    else if (index == 0)
+    {
+        delete_head(xor_list);
+    }
+    else if (index == (xor_list->m_length - 1))
+    {
+        delete_tail(xor_list);
+    }
+    else
+    {
+        ListNode* prev_list_node = NULL;
+        ListNode* current_list_node = xor_list->m_head;
+        ListNode* next_list_node =
+            xor_of_list_nodes(prev_list_node, current_list_node->m_diff);
+        for (size_t i = 0; i < (index - 1); ++i)
+        {
+            prev_list_node = current_list_node;
+            current_list_node = next_list_node;
+            next_list_node =
+                xor_of_list_nodes(prev_list_node, current_list_node->m_diff);
+        }
+        delete_middle_node(xor_list, next_list_node);
+        --xor_list->m_length;
+    }
+}

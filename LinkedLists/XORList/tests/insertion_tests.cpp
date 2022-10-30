@@ -11,5 +11,5 @@ TEST(InsertionTest, InsertOneElement)
     init_xor_list(&xor_list);
     insert_at_head(&xor_list, 4);
     ASSERT_EQ(1, xor_list.m_length);
-    // clear_xor_list(&xor_list);
+    clear_xor_list(&xor_list);
 }

@@ -31,6 +31,7 @@ void test_delete_head(void)
     printf("After deleting head:-\n");
     delete_head(&xor_list);
     print_xor_list(&xor_list);
+    clear_xor_list(&xor_list);
 }
 
 void test_delete_tail(void)
@@ -42,6 +43,7 @@ void test_delete_tail(void)
     printf("After deleting tail:-\n");
     delete_tail(&xor_list);
     print_xor_list(&xor_list);
+    clear_xor_list(&xor_list);
 }
 
 void test_delete_at(void)
@@ -53,6 +55,7 @@ void test_delete_at(void)
     printf("After deleting at index 2:-\n");
     delete_at(&xor_list, 2);
     print_xor_list(&xor_list);
+    clear_xor_list(&xor_list);
 }
 
 int main(void)

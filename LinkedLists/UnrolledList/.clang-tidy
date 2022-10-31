@@ -1,0 +1,9 @@
+---
+Checks: "-*,
+    clang-analyzer-core*,
+    portability-*,
+    readability-*,
+"
+WarningsAsErrors: ''
+HeaderFilterRegex: ''
+FormatStyle:     none

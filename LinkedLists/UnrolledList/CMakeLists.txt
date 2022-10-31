@@ -5,7 +5,7 @@ project(UnrolledList)
 add_subdirectory(src)
 
 #uncomment to disable tests
-set(DO_TESTS FALSE)
+#set(DO_TESTS FALSE)
 
 if(DO_TESTS)
     enable_testing()

@@ -1,5 +1,5 @@
-#ifndef LINKED_LIST_H
-#define LINKED_LIST_H
+#ifndef DS_IMPL_C_CIRCULAR_LIST_H
+#define DS_IMPL_C_CIRCULAR_LIST_H
 
 #include <stddef.h>
 
@@ -17,22 +17,22 @@ typedef struct
     size_t m_length;
 } CircularList;
 
-void init_circular_list(CircularList* circular_list);
+void cl_init_circular_list(CircularList* circular_list);
 
-void insert_at_head(CircularList* circular_list, int data);
+void cl_insert_at_head(CircularList* circular_list, int data);
 
-void insert_after_tail(CircularList* circular_list, int data);
+void cl_insert_after_tail(CircularList* circular_list, int data);
 
-void insert_at(CircularList* circular_list, size_t index, int data);
+void cl_insert_at(CircularList* circular_list, size_t index, int data);
 
-void print_circular_list(CircularList* circular_list);
+void cl_print_circular_list(CircularList* circular_list);
 
-void delete_head(CircularList* circular_list);
+void cl_delete_head(CircularList* circular_list);
 
-void delete_tail(CircularList* circular_list);
+void cl_delete_tail(CircularList* circular_list);
 
-void delete_at(CircularList* circular_list, size_t index);
+void dl_delete_at(CircularList* circular_list, size_t index);
 
-void clear_circular_list(CircularList* circular_list);
+void cl_clear_circular_list(CircularList* circular_list);
 
 #endif
